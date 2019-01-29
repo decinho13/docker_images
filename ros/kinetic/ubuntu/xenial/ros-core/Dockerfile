@@ -40,8 +40,10 @@ RUN apt-get update && apt-get install -y \
 # setup entrypoint
 COPY ./ros_entrypoint.sh /
 
-RUN adduser --disabled-password rosuser
+RUN adduser --disabled-password --gid 0 --gecos "ROS user" rosuser
 USER rosuser
+RUN chown rosuser:root /home/rosuser && chmod 0775 /home/rosuser
+ENV HOME /home/rosuser
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["bash","-c","/ros_entrypoint.sh roscore"]
