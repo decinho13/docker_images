@@ -36,8 +36,12 @@ RUN apt-get update && apt-get install -y \
     ros-kinetic-ros-core=1.3.2-0* \
     && rm -rf /var/lib/apt/lists/*
 
+
 # setup entrypoint
 COPY ./ros_entrypoint.sh /
 
+RUN adduser --disabled-password rosuser
+USER rosuser
+
 ENTRYPOINT ["/ros_entrypoint.sh"]
-CMD ["bash"]
+CMD ["bash","-c","/ros_entrypoint.sh roscore"]
