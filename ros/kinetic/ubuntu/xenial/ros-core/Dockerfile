@@ -46,4 +46,4 @@ RUN chown rosuser:root /home/rosuser && chmod 0775 /home/rosuser
 ENV HOME /home/rosuser
 
 ENTRYPOINT ["/ros_entrypoint.sh"]
-CMD ["bash","-c","/ros_entrypoint.sh roscore"]
+CMD ["/bin/bash", "-c","/ros_entrypoint.sh roscore"]
